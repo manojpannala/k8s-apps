@@ -7,6 +7,11 @@ pipeline {
                 git branch: 'master', url: 'https://github.com/manojpannala/Spring-Jaeger-Monitoring-Stack.git'
             }
         }
+        stage('Set Permissions') {
+            steps {
+                sh 'chmod +x ./gradlew'
+            }
+        }        
         stage('Build Gradle') {
             steps {
                 sh './gradlew build'
