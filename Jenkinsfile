@@ -19,7 +19,9 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                def dockerImage = docker.build "manojpannala/tracing-demo:$(date +%s)"
+                script {
+                    dockerImage = docker.build "manojpannala/tracing-demo:$(date +%s)"
+                }
             }
         }
         stage('Push Image to DockerHub') {
@@ -27,8 +29,10 @@ pipeline {
                 DOCKER_HUB_LOGIN = credentials('dockerhub_creds')
             }
             steps {
+                script {
                 sh 'docker login --username=$DOCKER_HUB_LOGIN_USR --password=$DOCKER_HUB_LOGIN_PSW'
                 dockerImage.push()
+                }
             }
         }
         stage('Update Kustomization Manifest') {
