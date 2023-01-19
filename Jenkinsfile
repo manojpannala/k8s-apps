@@ -2,9 +2,9 @@
 pipeline {
     agent {
         kubernetes {
-        label 'tracing-demo'
-        defaultContainer 'jnlp'
-        yaml """
+            label 'tracing-demo'
+            defaultContainer 'jnlp'
+            yaml """
 apiVersion: v1
 kind: Pod
 metadata:
