@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                sh './gradlew docker'
+                def dockerImage = docker.build("manojpannala/tracing-demo:$(date +%s)")
             }
         }
         stage('Push Image to DockerHub') {
@@ -28,7 +28,7 @@ pipeline {
             }
             steps {
                 sh 'docker login --username=$DOCKER_HUB_LOGIN_USR --password=$DOCKER_HUB_LOGIN_PSW'
-                sh './gradlew dockerPush'
+                dockerImage.push()
             }
         }
         stage('Update Kustomization Manifest') {
