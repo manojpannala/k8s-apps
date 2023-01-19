@@ -30,7 +30,7 @@ pipeline {
                 git branch: 'master', url: 'https://github.com/manojpannala/k8s-apps/tracing-demo/base/kustomization.yaml.git'
 
 continueOnError false
-                sh 'sed -i "s/image: manojpannala\/tracing-demo:<version>/image: manojpannala\/tracing-demo:$(date +%s)/" kustomization.yaml'
+                sh 'sed -i "s/image: manojpannala/tracing-demo:<version>/image: manojpannala/tracing-demo:$(date +%s)/" kustomization.yaml'
                 sh 'git commit -am "update to latest version"'
                 sh 'git push'
             }
