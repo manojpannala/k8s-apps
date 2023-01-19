@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                def dockerImage = docker.build("tracing-demo:$(date +%s)")
+                def dockerImage = docker.build "manojpannala/tracing-demo:$(date +%s)"
             }
         }
         stage('Push Image to DockerHub') {
