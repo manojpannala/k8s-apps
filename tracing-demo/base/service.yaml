@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: tracing-demo
+  labels:
+    app: tracing-demo
+spec:
+  selector:
+    app: tracing-demo
+  ports:
+    - name: web
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
