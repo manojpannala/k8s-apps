@@ -1,7 +1,7 @@
 
 pipeline {
     agent {
-        kubernetes {
+        any {
             label 'tracing-demo'
             defaultContainer 'jnlp'
             yaml """
