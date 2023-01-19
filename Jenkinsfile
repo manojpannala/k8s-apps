@@ -19,15 +19,16 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t manojpannala/tracing-demo:$(date +%s) ./'
+                sh './gradlew docker'
             }
         }
         stage('Push Image to DockerHub') {
+            environment {
+                DOCKER_HUB_LOGIN = credentials('dockerhub_creds')
+            }
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub_creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    sh 'docker login -u $USERNAME -p $PASSWORD'
-                    sh 'docker push manojpannala/tracing-demo:$(date +%s)'
-                }
+                sh 'docker login --username=$DOCKER_HUB_LOGIN_USR --password=$DOCKER_HUB_LOGIN_PSW'
+                sh './gradlew dockerPush'
             }
         }
         stage('Update Kustomization Manifest') {
