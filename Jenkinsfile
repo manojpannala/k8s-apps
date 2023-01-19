@@ -58,9 +58,7 @@ spec:
         }
         stage('Build Docker Image') {
             steps {
-                script {
-                    dockerImage = docker.build "manojpannala/tracing-demo:$(date +%s)"
-                }
+                sh 'docker build -t manojpannala/tracing-demo:$(date +%s) .'
             }
         }
         stage('Push Image to DockerHub') {
@@ -68,10 +66,8 @@ spec:
                 DOCKER_HUB_LOGIN = credentials('dockerhub_creds')
             }
             steps {
-                script {
                 sh 'docker login --username=$DOCKER_HUB_LOGIN_USR --password=$DOCKER_HUB_LOGIN_PSW'
-                dockerImage.push()
-                }
+                sh 'docker push manojpannala/tracing-demo:$(date +%s)'
             }
         }
         stage('Update Kustomization Manifest') {
