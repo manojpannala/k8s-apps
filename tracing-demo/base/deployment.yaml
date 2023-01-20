@@ -17,8 +17,8 @@ spec:
     spec:
       containers:
         - name: tracing-demo
-          image: tracing-demo:latest
-          imagePullPolicy: Never
+          image: tracing-demo:1.0
+          imagePullPolicy: IfNotPresent
           ports:
             - name: web
               containerPort: 8080
