@@ -26,18 +26,8 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub_creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh 'docker login -u $USERNAME -p $PASSWORD'
-                    sh 'docker push manojpannala/tracing-demo:$(date +%s)'
+                    sh 'docker push manojpannala/tracing-demo'
                 }
-            }
-        }
-        stage('Update Kustomization Manifest') {
-            steps {
-                git branch: 'master', url: 'https://github.com/manojpannala/k8s-apps/tracing-demo/base/kustomization.yaml.git'
-
-continueOnError false
-                sh 'sed -i "s/image: manojpannala/tracing-demo:<version>/image: manojpannala/tracing-demo:$(date +%s)/" kustomization.yaml'
-                sh 'git commit -am "update to latest version"'
-                sh 'git push'
             }
         }
     }
