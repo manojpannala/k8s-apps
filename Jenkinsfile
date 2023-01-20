@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t manojpannala/tracing-demo:$(date +%s) ./'
+                sh 'docker build -t manojpannala/tracing-demo ./'
             }
         }
         stage('Push Image to DockerHub') {
