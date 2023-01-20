@@ -19,14 +19,14 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t manojpannala/tracing-demo ./'
+                sh 'docker build -t manojpannala/tracing-demo:1.0 ./'
             }
         }
         stage('Push Image to DockerHub') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub_creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh 'docker login -u $USERNAME -p $PASSWORD'
-                    sh 'docker push manojpannala/tracing-demo'
+                    sh 'docker push manojpannala/tracing-demo:1.0'
                 }
             }
         }
