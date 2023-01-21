@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: tracing-demo
-          image: tracing-demo:1.0
+          image: manojpannala/tracing-demo:1.0
           imagePullPolicy: Always
           ports:
             - name: web
